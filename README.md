@@ -1,0 +1,2 @@
+# Ising-model
+Ising Model
