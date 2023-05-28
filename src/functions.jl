@@ -45,3 +45,16 @@ function state(L,T,MSC)
     S
 end
 
+function animate_ising(L,T,MSC)
+    m = Vector{Float64}(undef,MSC)
+    S = rand((-1,1),L,L)
+    an = @animate for step in ProgressBar(1:MSC)
+        metropolis!(S, T, L)
+        m[step] = mean(S)
+        p1 = heatmap(S, legend=false)
+        p2 = plot(1:step,m[1:step], legend=false)
+        plot(p1,p2, layout= grid(2, 1, heights=[0.8 ,0.2]))
+    end
+    plot!(size=(700,1000))
+    gif(an, "Ising.gif", fps = 25)
+end
