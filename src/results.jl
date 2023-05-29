@@ -31,4 +31,19 @@ end
 
 @save "data/trajectories_T1_0.jld2" trajectories_L10_T1_0 trajectories_L20_T1_0 trajectories_L40_T1_0 trajectories_L80_T1_0
 ####
+#Generating trajectories for T=2.26, length 1000 MCS
 
+trajectories_L10_T2_26 = Vector(undef,10)
+trajectories_L20_T2_26 = Vector(undef,10)
+trajectories_L40_T2_26 = Vector(undef,10)
+trajectories_L80_T2_26 = Vector(undef,10)
+
+for i in 1:10
+    trajectories_L10_T2_26[i] = trajectory_random(10,2.26,1000)
+    trajectories_L20_T2_26[i] = trajectory_random(20,2.26,1000)
+    trajectories_L40_T2_26[i] = trajectory_random(40,2.26,1000)
+    trajectories_L80_T2_26[i] = trajectory_random(80,2.26,1000)
+end
+
+@save "data/trajectories_T2_26.jld2" trajectories_L10_T2_26 trajectories_L20_T2_26 trajectories_L40_T2_26 trajectories_L80_T2_26
+####
