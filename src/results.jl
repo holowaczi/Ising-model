@@ -64,3 +64,57 @@ Threads.@threads for i in ProgressBar(1:60)
 end
 
 @save "data/magnetization_time.jld2" magnetization_time_L10 magnetization_time_L20 magnetization_time_L40 magnetization_time_L80
+####
+#Magnetization for temperatures. Ensemble average. Ensemble size = 50.
+temperatures = LinRange(0.5,3.5,60)
+
+#L=10
+magnetization_ensemble_L10 = Vector(undef,60)
+
+for i in ProgressBar(1:60)
+    T = temperatures[i]
+    mag = Vector{Float64}(undef,200)
+    Threads.@threads for j in 1:200
+        mag[j] = abs(trajectory_order(10,T,10^4)[10^4])
+    end
+    magnetization_ensemble_L10[i] = mean(mag)
+end
+
+#L=20
+magnetization_ensemble_L20 = Vector(undef,60)
+
+for i in ProgressBar(1:60)
+    T = temperatures[i]
+    mag = Vector{Float64}(undef,100)
+    Threads.@threads for j in 1:100
+        mag[j] = abs(trajectory_order(20,T,10^4)[10^4])
+    end
+    magnetization_ensemble_L20[i] = mean(mag)
+end
+
+#L=40
+magnetization_ensemble_L40 = Vector(undef,60)
+
+for i in ProgressBar(1:60)
+    T = temperatures[i]
+    mag = Vector{Float64}(undef,50)
+    Threads.@threads for j in 1:50
+        mag[j] = abs(trajectory_order(40,T,10^4)[10^4])
+    end
+    magnetization_ensemble_L40[i] = mean(mag)
+end
+
+#L=80
+magnetization_ensemble_L80 = Vector(undef,60)
+
+for i in ProgressBar(1:60)
+    T = temperatures[i]
+    mag = Vector{Float64}(undef,50)
+    Threads.@threads for j in 1:50
+        mag[j] = abs(trajectory_order(80,T,10^4)[10^4])
+    end
+    magnetization_ensemble_L80[i] = mean(mag)
+end
+
+@save "data/magnetization_ensemble.jld2" magnetization_ensemble_L10 magnetization_ensemble_L20 magnetization_ensemble_L40 magnetization_ensemble_L80
+####
