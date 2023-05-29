@@ -23,7 +23,7 @@ plot(trajectories_L80_T1_0, legend=false, xlabel = "MCS", ylabel="m", title="L=8
 #Magnetizataion for temperatures from 0.5 to 3.5. Average by time.
 @load "data/magnetization_time.jld2" magnetization_time_L10 magnetization_time_L20 magnetization_time_L40 magnetization_time_L80
 t = LinRange(0.5,3.5,60)
-plot(t, magnetization_time_L10, label="L10", marker=(:circle,4))
+plot(t, magnetization_time_L10, label="L10", marker=(:circle,4), title="Average by time K0 = 90 000 MCS, K= 100 000 MCS", xlabel = "T*", ylabel="<m>")
 plot!(t, magnetization_time_L20, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_time_L40, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_time_L80, label = "L80", marker=(:dtriangle,4))
