@@ -26,39 +26,38 @@ function metropolis_with_field!(S, T, h, L)
     end
 end
 
-function trajectory_random(L,T,MSC)
-    m = Vector{Float64}(undef,MSC)
+function trajectory_random(L,T,MCS)
+    m = Vector{Float64}(undef,MCS)
     S = rand((-1,1),L,L)
-    for step in 1:MSC
+    for step in 1:MCS
         metropolis!(S,T,L)
         m[step] = mean(S)
     end
     m
 end
 
-function trajectory_order(L,T,MSC)
-    m = Vector{Float64}(undef,MSC)
+function trajectory_order(L,T,MCS)
+    m = Vector{Float64}(undef,MCS)
     S = ones(L,L)
-    for step in 1:MSC
+    for step in 1:MCS
         metropolis!(S,T,L)
         m[step] = mean(S)
     end
     m
 end
 
-function state(L,T,MSC)
+function state(L,T,MCS)
     S = rand((-1,1),L,L)
-    for step in 1:MSC
+    for _ in 1:MCS
         metropolis!(S,T,L)
-        m[step] = mean(S)
     end
     S
 end
 
-function animate_ising(L,T,MSC, path::String, FPS::Int64)
-    m = Vector{Float64}(undef,MSC)
+function animate_ising(L,T,MCS, path::String, FPS::Int64)
+    m = Vector{Float64}(undef,MCS)
     S = rand((-1,1),L,L)
-    an = @animate for step in ProgressBar(1:MSC)
+    an = @animate for step in ProgressBar(1:MCS)
         metropolis!(S, T, L)
         m[step] = mean(S)
         p1 = heatmap(S, legend=false)

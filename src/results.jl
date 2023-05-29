@@ -2,6 +2,9 @@ using Random, Plots, ProgressBars, Statistics, StatsBase, JLD2, FileIO
 
 include("functions.jl")
 
+####
+#Generating trajectories for T=1, length 100 MCS
+
 trajectories_L10_T1_0 = Vector(undef,10)
 trajectories_L20_T1_0 = Vector(undef,10)
 trajectories_L40_T1_0 = Vector(undef,10)
