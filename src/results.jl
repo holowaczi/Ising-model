@@ -47,7 +47,7 @@ end
 
 @save "data/trajectories_T2_26.jld2" trajectories_L10_T2_26 trajectories_L20_T2_26 trajectories_L40_T2_26 trajectories_L80_T2_26
 ####
-#Magnetization for temepratures
+#Magnetization for temperatures. Averege by time 9*10^4:10^5 MCS
 temperatures = LinRange(0.5,3.5,60)
 
 magnetization_time_L10 = Vector(undef,60)
@@ -55,12 +55,12 @@ magnetization_time_L20 = Vector(undef,60)
 magnetization_time_L40 = Vector(undef,60)
 magnetization_time_L80 = Vector(undef,60)
 
-for i in 1:60
+Threads.@threads for i in ProgressBar(1:60)
     T = temperatures[i]
-    magnetization_time_L10[i] = mean(trajectory_order(10,T,10^4)[9*10^3:10^4])
-    magnetization_time_L20[i] = mean(trajectory_order(20,T,10^4)[9*10^3:10^4])
-    magnetization_time_L40[i] = mean(trajectory_order(40,T,10^4)[9*10^3:10^4])
-    magnetization_time_L80[i] = mean(trajectory_order(80,T,10^4)[9*10^3:10^4])
+    magnetization_time_L10[i] = mean(abs.(trajectory_order(10,T,10^5)[9*10^4:10^5]))
+    magnetization_time_L20[i] = mean(abs.(trajectory_order(20,T,10^5)[9*10^4:10^5]))
+    magnetization_time_L40[i] = mean(abs.(trajectory_order(40,T,10^5)[9*10^4:10^5]))
+    magnetization_time_L80[i] = mean(abs.(trajectory_order(80,T,10^5)[9*10^4:10^5]))
 end
 
 @save "data/magnetization_time.jld2" magnetization_time_L10 magnetization_time_L20 magnetization_time_L40 magnetization_time_L80
