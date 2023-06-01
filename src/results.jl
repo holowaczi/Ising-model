@@ -118,3 +118,78 @@ end
 
 @save "data/magnetization_ensemble.jld2" magnetization_ensemble_L10 magnetization_ensemble_L20 magnetization_ensemble_L40 magnetization_ensemble_L80
 ####
+#Magnetization for temperatures. Averege by time 100 000 : 250 000 MCS
+
+temperatures = LinRange(0.5,3.5,50)
+magnetization_time_L10_250k = Vector(undef,50)
+magnetization_time_L50 = Vector(undef,50)
+magnetization_time_L100 = Vector(undef,50)
+magnetization_time_L200 = Vector(undef,50)
+magnetization_time_L500 = Vector(undef,50)
+MCS = 250000
+K0=100000
+Threads.@threads for i in ProgressBar(1:50)
+    T = temperatures[i]
+    magnetization_time_L50[i] = mean(abs.(trajectory_order(50,T,MCS)[K0:MCS]))
+end
+
+@save "data/magnetization_time_large.jld2" magnetization_time_L50
+
+Threads.@threads for i in ProgressBar(1:50)
+    T = temperatures[i]
+    magnetization_time_L100[i] = mean(abs.(trajectory_order(100,T,MCS)[K0:MCS]))
+end
+
+@load "data/magnetization_time_large.jld2" magnetization_time_L50
+@save "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100
+
+Threads.@threads for i in ProgressBar(1:50)
+    T = temperatures[i]
+    magnetization_time_L200[i] = mean(abs.(trajectory_order(200,T,MCS)[K0:MCS]))
+end
+
+@load "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100
+@save "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200
+
+Threads.@threads for i in ProgressBar(1:50)
+    T = temperatures[i]
+    magnetization_time_L500[i] = mean(abs.(trajectory_order(500,T,MCS)[K0:MCS]))
+end
+
+@load "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200 magnetization_time_L10_250k
+@save "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200 magnetization_time_L10_250k magnetization_time_L500
+
+Threads.@threads for i in ProgressBar(1:50)
+    T = temperatures[i]
+    magnetization_time_L10_250k[i] = mean(abs.(trajectory_order(10,T,MCS)[K0:MCS]))
+end
+
+@load "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200
+@save "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200 magnetization_time_L10_250k
+####
+#Histeresis
+m1_T15, h1_T15 = with_field_plus(40,1.5,10^4,200)
+m2_T15, h2_T15 = with_field_minus(40,1.5,10^4,200)
+
+m_T15 = vcat(m1_T15,m2_T15)
+h_T15 = vcat(h1_T15,h2_T15)
+
+m1_T18, h1_T18 = with_field_plus(40,1.8,10^4,200)
+m2_T18, h2_T18 = with_field_minus(40,1.8,10^4,200)
+
+m_T18 = vcat(m1_T18,m2_T18)
+h_T18 = vcat(h1_T18,h2_T18)
+
+m1_T2, h1_T2 = with_field_plus(40,2,10^4,200)
+m2_T2, h2_T2 = with_field_minus(40,2,10^4,200)
+
+m_T2 = vcat(m1_T2,m2_T2)
+h_T2 = vcat(h1_T2,h2_T2)
+
+m1_T226, h1_T226 = with_field_plus(40,2.26,10^4,200)
+m2_T226, h2_T226 = with_field_minus(40,2.26,10^4,200)
+
+m_T226 = vcat(m1_T226,m2_T226)
+h_T226 = vcat(h1_T226,h2_T226)
+
+@save "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T226 h_T226 

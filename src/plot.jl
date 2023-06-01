@@ -36,3 +36,20 @@ plot!(t, magnetization_ensemble_L20, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_ensemble_L40, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
 ####
+@load "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200 magnetization_time_L10_250k magnetization_time_L500
+
+t = LinRange(0.5,3.5,50)
+
+plot(t, magnetization_time_L10_250k, label = "L10", marker=(:dtriangle,4), title="Average by time K0=100 000 MCS, K=250 000 MCS", xlabel = "T*", ylabel="<m>")
+plot!(t, magnetization_time_L50, label="L50", marker=(:circle,4))
+plot!(t, magnetization_time_L100, label="L100", marker=(:diamond,4))
+plot!(t, magnetization_time_L200, label="L200", marker=(:hexagon,4))
+plot!(t, magnetization_time_L500, label = "L500", marker=(:star4,4))
+####
+@load "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T226 h_T226 
+
+scatter(h_T15[1:10:2*10^4], m_T15[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.5", title="L40, 20 000 MCS",legend = :outerbottom)
+scatter!(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.8")
+scatter!(h_T2[1:10:2*10^4], m_T2[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2")
+scatter!(h_T226[1:10:2*10^4], m_T226[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.26")
+####
