@@ -193,3 +193,30 @@ m_T226 = vcat(m1_T226,m2_T226)
 h_T226 = vcat(h1_T226,h2_T226)
 
 @save "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T226 h_T226 
+####
+#Ising 3D
+temperatures = LinRange(0.5,6.5,60)
+
+magnetization_time_L5_3D = Vector(undef,60)
+
+Threads.@threads for i in ProgressBar(1:60)
+    T = temperatures[i]
+    magnetization_time_L5_3D[i] = mean(abs.(trajectory_order3D(5,T,5*10^4)[10^4:5*10^4]))
+end
+
+magnetization_time_L10_3D = Vector(undef,60)
+
+Threads.@threads for i in ProgressBar(1:60)
+    T = temperatures[i]
+    magnetization_time_L10_3D[i] = mean(abs.(trajectory_order3D(10,T,5*10^4)[10^4:5*10^4]))
+end
+
+magnetization_time_L25_3D = Vector(undef,60)
+
+Threads.@threads for i in ProgressBar(1:60)
+    T = temperatures[i]
+    magnetization_time_L25_3D[i] = mean(abs.(trajectory_order3D(25,T,5*10^4)[10^4:5*10^4]))
+end
+
+@save "data/magnetization_time_3D.jld2"   magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D
+

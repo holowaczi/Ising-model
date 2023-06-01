@@ -53,3 +53,13 @@ scatter!(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0
 scatter!(h_T2[1:10:2*10^4], m_T2[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2")
 scatter!(h_T226[1:10:2*10^4], m_T226[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.26")
 ####
+#Ising 3D
+@load "data/magnetization_time_3D.jld2"  magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D
+
+t = LinRange(0.5,6.5,60)
+
+plot(t, magnetization_time_L5_3D, label="L5", marker=(:circle,4), title="Ising 3D K0 = 10 000 MCS, K= 50 000 MCS", xlabel = "T*", ylabel="<m>")
+plot!(t, magnetization_time_L10_3D, label="L10", marker=(:hexagon,4))
+plot!(t, magnetization_time_L25_3D, label="L25", marker=(:diamond,4))
+####
+
