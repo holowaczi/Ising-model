@@ -4,11 +4,11 @@ using Plots, JLD2, FileIO
 #Heatmaps of states
 @load "data/states.jld2" state10_T1_0 state10_T2_27 state10_T4_0 state80_T1_0 state80_T2_27 state80_T4_0
 
-heatmap(state10_T1_0, title ="L=10, T=1", legend= false)
+heatmap(state10_T1_0, title ="L=10, T=1", legend = false)
 heatmap(state10_T2_27, title ="L=10, T=2.27", legend = false)
 heatmap(state10_T4_0, title ="L=10, T=4", legend = false)
 
-heatmap(state80_T1_0, title ="L=80, T=1", legend= false)
+heatmap(state80_T1_0, title ="L=80, T=1", legend = false)
 heatmap(state80_T2_27, title ="L=80, T=2.27", legend = false)
 heatmap(state80_T4_0, title ="L=80, T=4", legend = false)
 ####
@@ -67,8 +67,15 @@ t = LinRange(0.5,3.5,50)
 plot(t, magnetization_time_L10_250k, label = "L10", marker=(:dtriangle,4), title="Average by time K0=100 000 MCS, K=250 000 MCS", xlabel = "T*", ylabel="<m>")
 plot!(t, magnetization_time_L50, label="L50", marker=(:circle,4))
 plot!(t, magnetization_time_L100, label="L100", marker=(:diamond,4))
-plot!(t, magnetization_time_L200, label="L200", marker=(:hexagon,4))
-plot!(t, magnetization_time_L500, label = "L500", marker=(:star4,4))
+plot!(t, magnetization_time_L200, label="L200", marker=(:star4,4))
+plot!(t, magnetization_time_L500, label = "L500", marker=(:hexagon,4))
+
+#Zoomed for T = 2:3.5
+plot(t, magnetization_time_L10_250k, label = "L10", marker=(:dtriangle,4), title="Average by time K0=100 000 MCS, K=250 000 MCS", xlabel = "T*", ylabel="<m>", xlims=[2,3.5],ylims=[0,0.25])
+plot!(t, magnetization_time_L50, label="L50", marker=(:circle,4))
+plot!(t, magnetization_time_L100, label="L100", marker=(:diamond,4))
+plot!(t, magnetization_time_L200, label="L200", marker=(:star4,4))
+plot!(t, magnetization_time_L500, label = "L500", marker=(:hexagon,4))
 ####
 @load "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T226 h_T226 
 
