@@ -45,6 +45,20 @@ end
 
 @save "data/trajectories_T2_0.jld2" trajectories_L10_T2_0 trajectories_L20_T2_0 trajectories_L40_T2_0 trajectories_L80_T2_0
 ####
+trajectories_L10_T2_27 = Vector(undef,10)
+trajectories_L20_T2_27 = Vector(undef,10)
+trajectories_L40_T2_27 = Vector(undef,10)
+trajectories_L80_T2_27 = Vector(undef,10)
+
+for i in 1:10
+    trajectories_L10_T2_27[i] = trajectory_random(10,2.27,1000)
+    trajectories_L20_T2_27[i] = trajectory_random(20,2.27,1000)
+    trajectories_L40_T2_27[i] = trajectory_random(40,2.27,1000)
+    trajectories_L80_T2_27[i] = trajectory_random(80,2.27,1000)
+end
+
+@save "data/trajectories_T2_27.jld2" trajectories_L10_T2_27 trajectories_L20_T2_27 trajectories_L40_T2_27 trajectories_L80_T2_27
+####
 trajectories_L10_LONG = trajectory_random(10,2,10^5)
 
 @save "data/trajectories_LONG" trajectories_L10_LONG
