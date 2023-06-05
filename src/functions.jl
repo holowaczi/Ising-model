@@ -133,3 +133,22 @@ function trajectory_order3D(L,T,MCS)
     end
     m
 end
+
+function Ising_simd(L, T, MSC)
+    m = Vector{Float64}(undef,MSC)
+    S = ones(L,L)
+    @simd for MCstep in 1:MSC
+        for N in 1:L^2
+            i = rand(1:L)
+            j = rand(1:L)
+            ΔE = 2*S[i,j]*(S[i,mod1(j+1,L)] + S[i,mod1(j-1,L)]+S[mod1(i+1,L),j]+S[mod1(i-1,L),j])
+            if ΔE<=0
+                S[i,j] = - S[i,j]
+            elseif randexp()>ΔE/T
+                S[i,j] = - S[i,j]
+            end
+        end
+        m[MCstep] = mean(S)
+    end
+    return m
+end

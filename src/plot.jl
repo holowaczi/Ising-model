@@ -60,6 +60,14 @@ plot!(t, magnetization_ensemble_L20, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_ensemble_L40, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
 ####
+#Magnetizataion for temperatures from 0.5 to 3.5. Ensemble average. Ensemble size = 50.
+@load "data/magnetization_ensemble2.jld2" magnetization_ensemble_L10_150 magnetization_ensemble_L20_150 magnetization_ensemble_L40_150 magnetization_ensemble_L80_150
+t = LinRange(0.5,3.5,60)
+plot(t, magnetization_ensemble_L10_150, label="L10", marker=(:circle,4), title="Ensemble average", xlabel = "T*", ylabel="<m>")
+plot!(t, magnetization_ensemble_L20_150, label="L20", marker=(:diamond,4))
+plot!(t, magnetization_ensemble_L40_150, label="L40", marker=(:hexagon,4))
+plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
+####
 @load "data/magnetization_time_large.jld2" magnetization_time_L50 magnetization_time_L100 magnetization_time_L200 magnetization_time_L10_250k magnetization_time_L500
 
 t = LinRange(0.5,3.5,50)
@@ -77,12 +85,12 @@ plot!(t, magnetization_time_L100, label="L100", marker=(:diamond,4))
 plot!(t, magnetization_time_L200, label="L200", marker=(:star4,4))
 plot!(t, magnetization_time_L500, label = "L500", marker=(:hexagon,4))
 ####
-@load "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T226 h_T226 
+@load "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T227 h_T227 
 
-scatter(h_T15[1:10:2*10^4], m_T15[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.5", title="L40",legend = :outerbottom, xlabel="h", ylabel="m")
-scatter!(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.8")
+scatter(h_T15[1:10:2*10^4], m_T15[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.5", title="L40", xlabel="h", ylabel="m")
+scatter(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.8")
 scatter!(h_T2[1:10:2*10^4], m_T2[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2")
-scatter!(h_T226[1:10:2*10^4], m_T226[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.26")
+scatter!(h_T227[1:10:2*10^4], m_T227[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.27")
 ####
 #Ising 3D
 @load "data/magnetization_time_3D.jld2"  magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D magnetization_time_L50_3D
@@ -93,5 +101,12 @@ plot(t, magnetization_time_L5_3D, label="L5", marker=(:circle,4), title="Ising 3
 plot!(t, magnetization_time_L10_3D, label="L10", marker=(:hexagon,4))
 plot!(t, magnetization_time_L25_3D, label="L25", marker=(:diamond,4))
 plot!(t, magnetization_time_L50_3D, label="L50", marker=(:dtriangle,4))
-####
 
+plot(t, magnetization_time_L5_3D, label="L5", marker=(:circle,4), title="Ising 3D K0 = 10 000 MCS, K= 50 000 MCS", xlabel = "T*", ylabel="<m>", xlims=[4,6.5],ylims=[0,0.25])
+plot!(t, magnetization_time_L10_3D, label="L10", marker=(:hexagon,4))
+plot!(t, magnetization_time_L25_3D, label="L25", marker=(:diamond,4))
+plot!(t, magnetization_time_L50_3D, label="L50", marker=(:dtriangle,4))
+####
+@load "data/trajectories_LONG.jld2" trajectories_L10_LONG
+
+plot(trajectories_L10_LONG, legend=false, xlabel="MCS", ylabel="m", title="L10, T=1.8")
