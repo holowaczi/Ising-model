@@ -36,6 +36,14 @@ plot(trajectories_L20_T2_27, legend=false, xlabel = "MCS", ylabel="m", title="L=
 plot(trajectories_L40_T2_27, legend=false, xlabel = "MCS", ylabel="m", title="L=40, T=2.27")
 plot(trajectories_L80_T2_27, legend=false, xlabel = "MCS", ylabel="m", title="L=80, T=2.27")
 ####
+#Ploting trajectories
+@load "data/trajectories_T3_0.jld2" trajectories_L10_T3_0 trajectories_L20_T3_0 trajectories_L40_T3_0 trajectories_L80_T3_0
+
+plot(trajectories_L10_T3_0, legend=false, xlabel = "MCS", ylabel="m", title="L=10, T=3")
+plot(trajectories_L20_T3_0, legend=false, xlabel = "MCS", ylabel="m", title="L=20, T=3")
+plot(trajectories_L40_T3_0, legend=false, xlabel = "MCS", ylabel="m", title="L=40, T=3")
+plot(trajectories_L80_T3_0, legend=false, xlabel = "MCS", ylabel="m", title="L=80, T=3")
+####
 #Magnetizataion for temperatures from 0.5 to 3.5. Average by time.
 @load "data/magnetization_time.jld2" magnetization_time_L10 magnetization_time_L20 magnetization_time_L40 magnetization_time_L80
 t = LinRange(0.5,3.5,60)
