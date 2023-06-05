@@ -6,14 +6,14 @@ include("functions.jl")
 #Generating states after 100 MCS, sizes L=10 and L=80 for T=1, T=2.26, T=4
 
 state10_T1_0 = state(10,1,100)
-state10_T2_26 = state(10,2.26,100)
+state10_T2_27 = state(10,2.27,100)
 state10_T4_0 = state(10,4,100)
 
 state80_T1_0 = state(80,1,100)
-state80_T2_26 = state(80,2.26,100)
+state80_T2_27 = state(80,2.27,100)
 state80_T4_0 = state(80,4,100)
 
-@save "data/states.jld2" state10_T1_0 state10_T2_26 state10_T4_0 state80_T1_0 state80_T2_26 state80_T4_0
+@save "data/states.jld2" state10_T1_0 state10_T2_27 state10_T4_0 state80_T1_0 state80_T2_27 state80_T4_0
 ####
 #Generating trajectories for T=1, length 1000 MCS
 
@@ -30,6 +30,24 @@ for i in 1:10
 end
 
 @save "data/trajectories_T1_0.jld2" trajectories_L10_T1_0 trajectories_L20_T1_0 trajectories_L40_T1_0 trajectories_L80_T1_0
+####
+trajectories_L10_T2_0 = Vector(undef,10)
+trajectories_L20_T2_0 = Vector(undef,10)
+trajectories_L40_T2_0 = Vector(undef,10)
+trajectories_L80_T2_0 = Vector(undef,10)
+
+for i in 1:10
+    trajectories_L10_T2_0[i] = trajectory_random(10,2,1000)
+    trajectories_L20_T2_0[i] = trajectory_random(20,2,1000)
+    trajectories_L40_T2_0[i] = trajectory_random(40,2,1000)
+    trajectories_L80_T2_0[i] = trajectory_random(80,2,1000)
+end
+
+@save "data/trajectories_T2_0.jld2" trajectories_L10_T2_0 trajectories_L20_T2_0 trajectories_L40_T2_0 trajectories_L80_T2_0
+####
+trajectories_L10_LONG = trajectory_random(10,2,10^5)
+
+@save "data/trajectories_LONG" trajectories_L10_LONG
 ####
 #Generating trajectories for T=2.26, length 1000 MCS
 
@@ -218,5 +236,13 @@ Threads.@threads for i in ProgressBar(1:60)
     magnetization_time_L25_3D[i] = mean(abs.(trajectory_order3D(25,T,5*10^4)[10^4:5*10^4]))
 end
 
-@save "data/magnetization_time_3D.jld2"   magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D
+
+magnetization_time_L50_3D = Vector(undef,60)
+
+Threads.@threads for i in ProgressBar(1:60)
+    T = temperatures[i]
+    magnetization_time_L50_3D[i] = mean(abs.(trajectory_order3D(50,T,5*10^4)[10^4:5*10^4]))
+end
+
+@save "data/magnetization_time_3D.jld2"   magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D magnetization_time_L50_3D
 
