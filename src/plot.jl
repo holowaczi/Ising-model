@@ -110,4 +110,4 @@ plot!(t, magnetization_time_L50_3D, label="L50", marker=(:dtriangle,4))
 ####
 @load "data/trajectories_LONG.jld2" trajectories_L10_LONG
 
-plot(trajectories_L10_LONG, legend=false, xlabel="MCS", ylabel="m", title="L10, T=1.8")
+plot(trajectories_L10_LONG[1:100:end], legend=false, xlabel="MCS", ylabel="m", title="L10, T=1.8")
