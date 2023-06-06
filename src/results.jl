@@ -77,7 +77,7 @@ trajectories_L10_LONG = trajectory_random(10,1.8,10^6)
 
 @save "data/trajectories_LONG.jld2" trajectories_L10_LONG
 ####
-#Magnetization for temperatures. Averege by time 9*10^4:10^5 MCS
+#Magnetization for temperatures. Averege by time 5*10^4:10^5 MCS
 temperatures = LinRange(0.5,3.5,60)
 
 magnetization_time_L10 = Vector(undef,60)

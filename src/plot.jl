@@ -47,7 +47,7 @@ plot(trajectories_L80_T3_0, legend=false, xlabel = "MCS", ylabel="m", title="L=8
 #Magnetizataion for temperatures from 0.5 to 3.5. Average by time.
 @load "data/magnetization_time.jld2" magnetization_time_L10 magnetization_time_L20 magnetization_time_L40 magnetization_time_L80
 t = LinRange(0.5,3.5,60)
-plot(t, magnetization_time_L10, label="L10", marker=(:circle,4), title="Average by time K0 = 90 000 MCS, K= 100 000 MCS", xlabel = "T*", ylabel="<m>")
+plot(t, magnetization_time_L10, label="L10", marker=(:circle,4), title="Average by time K0 = 50 000 MCS, K= 100 000 MCS", xlabel = "T*", ylabel="<m>")
 plot!(t, magnetization_time_L20, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_time_L40, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_time_L80, label = "L80", marker=(:dtriangle,4))
@@ -55,7 +55,8 @@ plot!(t, magnetization_time_L80, label = "L80", marker=(:dtriangle,4))
 #Magnetizataion for temperatures from 0.5 to 3.5. Ensemble average. Ensemble size = 50.
 @load "data/magnetization_ensemble.jld2" magnetization_ensemble_L10 magnetization_ensemble_L20 magnetization_ensemble_L40 magnetization_ensemble_L80
 t = LinRange(0.5,3.5,60)
-plot(t, magnetization_ensemble_L10, label="L10", marker=(:circle,4), title="Ensemble average", xlabel = "T*", ylabel="<m>")
+
+plot(t, magnetization_ensemble_L10, label="L10", marker=(:circle,4), title="Ensemble size 50, 10 000 MCS", xlabel = "T*", ylabel="<m>")
 plot!(t, magnetization_ensemble_L20, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_ensemble_L40, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
@@ -63,7 +64,7 @@ plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
 #Magnetizataion for temperatures from 0.5 to 3.5. Ensemble average. Ensemble size = 50.
 @load "data/magnetization_ensemble2.jld2" magnetization_ensemble_L10_150 magnetization_ensemble_L20_150 magnetization_ensemble_L40_150 magnetization_ensemble_L80_150
 t = LinRange(0.5,3.5,60)
-plot(t, magnetization_ensemble_L10_150, label="L10", marker=(:circle,4), title="Ensemble average", xlabel = "T*", ylabel="<m>")
+plot(t, magnetization_ensemble_L10_150, label="L10", marker=(:circle,4), title="Ensemble size 150, 10 000 MCS", xlabel = "T*", ylabel="<m>")
 plot!(t, magnetization_ensemble_L20_150, label="L20", marker=(:diamond,4))
 plot!(t, magnetization_ensemble_L40_150, label="L40", marker=(:hexagon,4))
 plot!(t, magnetization_ensemble_L80, label = "L80", marker=(:dtriangle,4))
@@ -88,9 +89,9 @@ plot!(t, magnetization_time_L500, label = "L500", marker=(:hexagon,4))
 @load "data/histeresis.jld2" m_T15 h_T15 m_T18 h_T18 m_T2 h_T2 m_T227 h_T227 
 
 scatter(h_T15[1:10:2*10^4], m_T15[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.5", title="L40", xlabel="h", ylabel="m")
-scatter(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.8")
-scatter!(h_T2[1:10:2*10^4], m_T2[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2")
-scatter!(h_T227[1:10:2*10^4], m_T227[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.27")
+scatter!(h_T18[1:10:2*10^4], m_T18[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=1.8",title="L40", xlabel="h", ylabel="m")
+scatter!(h_T2[1:10:2*10^4], m_T2[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2",title="L40", xlabel="h", ylabel="m")
+scatter!(h_T227[1:10:2*10^4], m_T227[1:10:2*10^4],markersize=3,markerstrokewidth=0, label="T=2.27",title="L40", xlabel="h", ylabel="m")
 ####
 #Ising 3D
 @load "data/magnetization_time_3D.jld2"  magnetization_time_L5_3D magnetization_time_L10_3D magnetization_time_L25_3D magnetization_time_L50_3D
